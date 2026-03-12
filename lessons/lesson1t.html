@@ -6,7 +6,6 @@
     <title>Lesson 1 | PascalLearn SFedU</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
-
 <body>
 
     <header class="top-bar">
@@ -25,23 +24,13 @@
         <button id="themeToggle" class="theme-toggle">🌙</button>
     </header>
 
-
     <section class="section lesson-page">
-
         <h1>Lesson 1: Introduction to Pascal</h1>
         <p>Practice the basics of Pascal with 4 easy tasks.</p>
 
-
-        <!-- TASK 1 -->
-
         <div class="lesson-box">
-
             <h2>Task 1</h2>
-
-            <p>
-                Write a Pascal program that prints:
-                <code>Hello, Pascal!</code>
-            </p>
+            <p>Write a Pascal program that prints: <code>Hello, Pascal!</code></p>
 
             <iframe src="https://onecompiler.com/embed/pascal"
                     width="100%"
@@ -50,28 +39,17 @@
             </iframe>
 
             <div class="checker-box">
-
                 <label>Paste your Pascal code here:</label>
-
-<textarea id="task1Code" class="task-code"></textarea>
-
-                <button class="btn primary"
-                        onclick="checkTask('lesson1_task1','task1Code','task1Result')">
+                <textarea id="task1Code" class="task-code"></textarea>
+                <button class="btn primary" onclick="checkTask('lesson1_task1','task1Code','task1Result')">
                     Check Answer
                 </button>
-
-<pre id="task1Result"></pre>
-
+                <pre id="task1Result"></pre>
             </div>
         </div>
 
-
-        <!-- TASK 2 -->
-
         <div class="lesson-box">
-
             <h2>Task 2</h2>
-
             <p>Write a Pascal program that prints your name.</p>
 
             <iframe src="https://onecompiler.com/embed/pascal"
@@ -81,28 +59,17 @@
             </iframe>
 
             <div class="checker-box">
-
                 <label>Paste your Pascal code here:</label>
-
-<textarea id="task2Code" class="task-code"></textarea>
-
-                <button class="btn primary"
-                        onclick="checkTask('lesson1_task2','task2Code','task2Result')">
+                <textarea id="task2Code" class="task-code"></textarea>
+                <button class="btn primary" onclick="checkTask('lesson1_task2','task2Code','task2Result')">
                     Check Answer
                 </button>
-
-<pre id="task2Result"></pre>
-
+                <pre id="task2Result"></pre>
             </div>
         </div>
 
-
-        <!-- TASK 3 -->
-
         <div class="lesson-box">
-
             <h2>Task 3</h2>
-
             <p>
                 Write a Pascal program that prints two lines:
                 <br>
@@ -118,32 +85,18 @@
             </iframe>
 
             <div class="checker-box">
-
                 <label>Paste your Pascal code here:</label>
-
-<textarea id="task3Code" class="task-code"></textarea>
-
-                <button class="btn primary"
-                        onclick="checkTask('lesson1_task3','task3Code','task3Result')">
+                <textarea id="task3Code" class="task-code"></textarea>
+                <button class="btn primary" onclick="checkTask('lesson1_task3','task3Code','task3Result')">
                     Check Answer
                 </button>
-
-<pre id="task3Result"></pre>
-
+                <pre id="task3Result"></pre>
             </div>
         </div>
 
-
-        <!-- TASK 4 -->
-
         <div class="lesson-box">
-
             <h2>Task 4</h2>
-
-            <p>
-                Write a Pascal program that prints:
-                <code>Welcome to Pascal programming</code>
-            </p>
+            <p>Write a Pascal program that prints: <code>Welcome to Pascal programming</code></p>
 
             <iframe src="https://onecompiler.com/embed/pascal"
                     width="100%"
@@ -152,122 +105,77 @@
             </iframe>
 
             <div class="checker-box">
-
                 <label>Paste your Pascal code here:</label>
-
-<textarea id="task4Code" class="task-code"></textarea>
-
-                <button class="btn primary"
-                        onclick="checkTask('lesson1_task4','task4Code','task4Result')">
+                <textarea id="task4Code" class="task-code"></textarea>
+                <button class="btn primary" onclick="checkTask('lesson1_task4','task4Code','task4Result')">
                     Check Answer
                 </button>
-
-<pre id="task4Result"></pre>
-
+                <pre id="task4Result"></pre>
             </div>
         </div>
 
-
         <a href="../index.html#lessons" class="btn primary">Back to Lessons</a>
-
     </section>
-
 
     <footer class="footer">
         <p>&copy; <span id="year"></span> PascalLearn SFedU</p>
     </footer>
 
-
-
     <script>
+    const API_URL = "https://pascal-checker-api--hamadafor.replit.app/check-task";
 
-const API_URL =
-"https://fa9b8dd8-f924-46d6-96e2-a27aad93b772-00-38usgs9k6fk96.kirk.replit.dev/check-task";
+    async function checkTask(taskId, textareaId, resultId) {
+        const code = document.getElementById(textareaId).value.trim();
+        const result = document.getElementById(resultId);
 
+        if (!code) {
+            result.textContent = "Please paste your code first.";
+            result.style.color = "red";
+            return;
+        }
 
-async function checkTask(taskId, textareaId, resultId){
+        result.textContent = "Checking...";
+        result.style.color = "inherit";
 
-const code =
-document.getElementById(textareaId).value.trim();
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    taskId: taskId,
+                    code: code
+                })
+            });
 
-const result =
-document.getElementById(resultId);
+            const data = await response.json();
 
-if(!code){
+            if (!data.ok) {
+                result.textContent = data.error || "Server error";
+                result.style.color = "red";
+                return;
+            }
 
-result.textContent = "Please paste your code first.";
-result.style.color = "red";
-
-return;
-
-}
-
-result.textContent = "Checking...";
-
-
-try{
-
-const response = await fetch(API_URL,{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-taskId:taskId,
-code:code
-
-})
-
-});
-
-
-const data = await response.json();
-
-
-if(!data.ok){
-
-result.textContent = data.error;
-result.style.color = "red";
-
-return;
-
-}
-
-
-if(data.correct){
-
-result.textContent = "✅ Correct";
-result.style.color = "limegreen";
-
-}else{
-
-result.textContent =
-"❌ Wrong\n\nExpected:\n" +
-data.expected +
-"\n\nYour output:\n" +
-data.output;
-
-result.style.color = "red";
-
-}
-
-}catch(err){
-
-result.textContent = "Connection failed.";
-result.style.color = "red";
-
-}
-
-}
-
+            if (data.correct) {
+                result.textContent = "✅ Correct";
+                result.style.color = "limegreen";
+            } else {
+                result.textContent =
+                    "❌ Wrong\n\nExpected:\n" +
+                    (data.expected || "") +
+                    "\n\nYour output:\n" +
+                    (data.output || "");
+                result.style.color = "red";
+            }
+        } catch (err) {
+            result.textContent = "Connection failed.";
+            result.style.color = "red";
+            console.error(err);
+        }
+    }
     </script>
 
-
     <script src="../script.js"></script>
-
 </body>
 </html>
