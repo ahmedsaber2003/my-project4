@@ -1,5 +1,5 @@
 <script>
-const API_URL = "https://pascal-checker-api--hamadafor.replit.app/check-task";
+const COMPILER_API = "https://studied-score-paint-harvey.trycloudflare.com/api/run";
 
 async function checkTask(taskId, textareaId, resultId) {
     const code = document.getElementById(textareaId).value.trim();
@@ -11,7 +11,7 @@ async function checkTask(taskId, textareaId, resultId) {
         return;
     }
 
-    result.textContent = "Checking...";
+    result.textContent = "Compiling...";
     result.style.color = "inherit";
 
     try {
@@ -21,30 +21,15 @@ async function checkTask(taskId, textareaId, resultId) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                taskId: taskId,
                 code: code
             })
         });
 
         const data = await response.json();
 
-        if (!data.ok) {
-            result.textContent = data.error || "Server error";
-            result.style.color = "red";
-            return;
-        }
+        result.textContent = data.output || "No output returned.";
+        result.style.color = "limegreen";
 
-        if (data.correct) {
-            result.textContent = "✅ Correct";
-            result.style.color = "limegreen";
-        } else {
-            result.textContent =
-                "❌ Wrong\n\nExpected:\n" +
-                (data.expected || "") +
-                "\n\nYour output:\n" +
-                (data.output || "");
-            result.style.color = "red";
-        }
     } catch (err) {
         result.textContent = "Connection failed.";
         result.style.color = "red";
