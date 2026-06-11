@@ -1,6 +1,6 @@
 <script>
 const COMPILER_API = "https://studied-score-paint-harvey.trycloudflare.com/api/run";
-
+alert(COMPILER_API);
 async function checkTask(taskId, textareaId, resultId) {
     const code = document.getElementById(textareaId).value.trim();
     const result = document.getElementById(resultId);
