@@ -1,5 +1,5 @@
 <script>
-const COMPILER_API = "https://studied-score-paint-harvey.trycloudflare.com/api/run";
+const COMPILER_API = "https://southampton-trusted-inns-cruz.trycloudflare.com";
 alert(COMPILER_API);
 async function checkTask(taskId, textareaId, resultId) {
     const code = document.getElementById(textareaId).value.trim();
