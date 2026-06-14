@@ -1,5 +1,5 @@
 <script>
-const COMPILER_API = "https://yarn-h";
+const COMPILER_API = "https://meetings-hero-repository-coding.trycloudflare.com";
 
 async function checkTask(taskId, textareaId, resultId) {
     const code = document.getElementById(textareaId).value.trim();
