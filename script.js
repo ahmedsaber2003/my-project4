@@ -1,5 +1,5 @@
 <script>
-const COMPILER_API = "https://forum-light-curious-courts.trycloudflare.com";
+const COMPILER_API = "https://yarn-hypothetical-anatomy-collaboration.trycloudflare.com";
 alert(COMPILER_API);
 async function checkTask(taskId, textareaId, resultId) {
     const code = document.getElementById(textareaId).value.trim();
