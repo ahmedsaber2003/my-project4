@@ -1,6 +1,6 @@
 <script>
-const COMPILER_API = "https://yarn-hypothetical-anatomy-collaboration.trycloudflare.com";
-alert(COMPILER_API);
+const COMPILER_API = "https://yarn-hypothetical-anatomy-collaboration.trycloudflare.com/api/run";
+
 async function checkTask(taskId, textareaId, resultId) {
     const code = document.getElementById(textareaId).value.trim();
     const result = document.getElementById(resultId);
@@ -15,7 +15,7 @@ async function checkTask(taskId, textareaId, resultId) {
     result.style.color = "inherit";
 
     try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(COMPILER_API, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
